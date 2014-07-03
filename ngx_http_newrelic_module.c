@@ -141,13 +141,13 @@ static char *ngx_http_newrelic_init_main_conf(ngx_conf_t *cf, void *conf) {
 	} else {
 	  newrelic_main_conf->enable = newrelic_loc_conf->enable; 
 	}
-	ngx_log_error(NGX_LOG_ERR, cf->log, 0, "NR ngx_http_newrelic_init_main_conf, %d", newrelic_main_conf->enable); 
+	/* ngx_log_error(NGX_LOG_NOTICE, cf->log, 0, "NR ngx_http_newrelic_init_main_conf, %d", newrelic_main_conf->enable);  */
 
 	return NGX_CONF_OK;
 }
 
 static void *ngx_http_newrelic_create_loc_conf(ngx_conf_t *cf) {
-	ngx_log_error(NGX_LOG_INFO, cf->log, 0, "NR ngx_http_newrelic_create_loc_conf"); 
+  /* ngx_log_error(NGX_LOG_INFO, cf->log, 0, "NR ngx_http_newrelic_create_loc_conf");*/ 
 
 	ngx_http_newrelic_loc_conf_t *newrelic_loc_conf;
 	newrelic_loc_conf = ngx_pcalloc(cf->pool, sizeof(ngx_http_newrelic_loc_conf_t));
@@ -157,8 +157,6 @@ static void *ngx_http_newrelic_create_loc_conf(ngx_conf_t *cf) {
 	}
 
 	newrelic_loc_conf->enable = NGX_CONF_UNSET;
-	//	newrelic_loc_conf->transaction_name.data = NULL;
-	//newrelic_loc_conf->transaction_name.len = 0;
 
 	return newrelic_loc_conf;
 }
@@ -212,7 +210,6 @@ static ngx_int_t ngx_http_newrelic_init(ngx_conf_t *cf) {
 
 	core_main_conf = ngx_http_conf_get_module_main_conf(cf, ngx_http_core_module);
 
-	//begin_request_handler = ngx_array_push(&core_main_conf->phases[NGX_HTTP_POST_READ_PHASE].handlers);
 	begin_request_handler = ngx_array_push(&core_main_conf->phases[NGX_HTTP_PREACCESS_PHASE].handlers);
 	end_request_handler = ngx_array_push(&core_main_conf->phases[NGX_HTTP_LOG_PHASE].handlers);
 
@@ -238,11 +235,11 @@ static ngx_int_t ngx_http_newrelic_process_init(ngx_cycle_t *cycle) {
 	newrelic_main_conf = ngx_http_cycle_get_module_main_conf(cycle, ngx_http_newrelic_module);
 
 	if (!newrelic_main_conf->enable) {
-	  /*	  ngx_log_error(NGX_LOG_ERR, cycle->log, 0, "NR ngx_http_newrelic_process_init, not enabled");*/
+	  /*	  ngx_log_error(NGX_LOG_NOTICE, cycle->log, 0, "NR ngx_http_newrelic_process_init, not enabled");*/
 		return NGX_OK;
 	}
 
-	/* ngx_log_error(NGX_LOG_ERR, cycle->log, 0, "NR ngx_http_newrelic_process_init, enabled");*/
+	/* ngx_log_error(NGX_LOG_NOTICE, cycle->log, 0, "NR ngx_http_newrelic_process_init, enabled");*/
 
 	newrelic_register_message_handler(newrelic_message_handler);
 
@@ -297,7 +294,7 @@ static ngx_int_t ngx_http_newrelic_begin_request_handler(ngx_http_request_t *r) 
 	/* save context in request */
 	ngx_http_set_ctx(r, ctx, ngx_http_newrelic_module);
 
-	/*ngx_log_error(NGX_LOG_ERR, r->connection->log, 0, "NR ngx_http_newrelic_begin_request_handler, name=%s, tid=%ld", transaction_name, transaction_id);*/
+	/*ngx_log_error(NGX_LOG_NOTICE, r->connection->log, 0, "NR ngx_http_newrelic_begin_request_handler, name=%s, tid=%ld", transaction_name, transaction_id);*/
   
 	return NGX_OK;
 }

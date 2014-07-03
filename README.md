@@ -11,7 +11,7 @@ Implementation was based on an initial work done by the Newrelic team.
 Sample Configuration
 --------------------
 
-Inside your main nginx.conf, or any enabled location, add on the http level config:
+Inside your main nginx.conf, or any enabled config file, add on the http level config:
 ```
 http {
 	...
@@ -61,8 +61,8 @@ Installation
 You will need to compile nginx from source in order to add this module.
 
 - Clone this repository
-- Install the Newrelic Agenst SDK - see [here](#Dependencies)
-- [Download](http://nginx.org/en/download.html) nginx source, extract and cd to it
+- Install the Newrelic Agenst SDK - see [here](#dependencies)
+- [Download](http://nginx.org/en/download.html) nginx source, extract and chdir to its root folder
 - Configure with
 ```
 ./configure --add-module=/path/to/this/folder
@@ -70,6 +70,13 @@ You will need to compile nginx from source in order to add this module.
 - Run `make && sudo make install`
 
 Check the nginx documentation for other configure options (it usually defaults to `/opt/nginx`)
+
+
+Notes:
+
+- If you use the [tengine web server](http://tengine.taobao.org/) (an nginx fork which supports dynamic modules), you can compile this module using
+```sudo /opt/nginx/sbin/dso_tool  --add-module=/path/to/this/folder```
+- Tested on nginx 1.6, tengine 1.5.2, although should work on any nginx version, and also on the openresty fork.
 
 Limitations
 -----------
