@@ -11,8 +11,7 @@ This module uses the [Newrelic Agent SDK](https://docs.newrelic.com/docs/agent-s
 
 [Download](http://download.newrelic.com/agent_sdk/) and install it by running the following:
 
-`
-NR_SDK_VER=0.9.9.0
+`NR_SDK_VER=0.9.9.0
 
 wget http://download.newrelic.com/agent_sdk/nr_agent_sdk-v${NR_SDK_VER}-beta.x86_64.tar.gz
 
@@ -24,6 +23,5 @@ sudo cp include/*h /usr/local/include/
 
 sudo cp lib/*so /usr/local/lib/
 
-sudo ldconfig
-`
+sudo ldconfig`
 
