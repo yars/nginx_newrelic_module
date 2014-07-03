@@ -18,3 +18,4 @@ sudo cp include/*h /usr/local/include/
 sudo cp lib/*so /usr/local/lib/
 sudo ldconfig
 `
+
